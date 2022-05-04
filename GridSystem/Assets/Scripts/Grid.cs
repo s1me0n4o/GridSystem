@@ -21,7 +21,8 @@ public class Grid<T>
 	private T[,] _gridArray;
 	private TextMeshPro[,] _debugTextArray;
 
-	public Grid(int width, int height, float cellSize, Vector3 originPosition, Transform parent, Func<Grid<T>, int, int, T> createGridObj)
+	public Grid(int width, int height, float cellSize, Vector3 originPosition, Transform parent, 
+		Func<Grid<T>, int, int, T> createGridObj) // passing the grid object, x and y
 	{
 		var showDebug = true;
 
@@ -51,7 +52,7 @@ public class Grid<T>
 			{
 				for (int y = 0; y < _gridArray.GetLength(1); y++)
 				{
-					_debugTextArray[x, y] = CreateWorldText(parent, $"{x},{y}", GetWorldPosition(x, y) + offset, fontSize,
+					_debugTextArray[x, y] = CreateWorldText(parent, _gridArray[x,y]?.ToString(), GetWorldPosition(x, y) + offset, fontSize,
 						Color.white, TextAlignmentOptions.Center, 0);
 
 					Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
@@ -60,6 +61,11 @@ public class Grid<T>
 			}
 			Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
 			Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+
+			OnGridValueChanged += (object sender, OnGridValueChangedEventArgs eventArgs) =>
+			{
+				_debugTextArray[eventArgs.x, eventArgs.y].text = _gridArray[eventArgs.x, eventArgs.y]?.ToString();
+			};
 		}
 	}
 	public float GetCellSize()
@@ -75,12 +81,12 @@ public class Grid<T>
 	{
 		return _height;
 	}
-	public void SetGridObjecT(int x, int y, T value)
+	public void SetGridObject(int x, int y, T value)
 	{
 		if (x >= 0 && y >= 0 && x < _width && y < _height)
 		{
 			_gridArray[x, y] = value;
-			_debugTextArray[x, y].text = _gridArray[x, y].ToString();
+			
 			if (OnGridValueChanged != null)
 			{
 				OnGridValueChanged(this, new OnGridValueChangedEventArgs { x = x, y = y });
@@ -103,7 +109,7 @@ public class Grid<T>
 	{
 		int x, y;
 		GetXandY(worldPosition, out x, out y);
-		SetGridObjecT(x, y, value);
+		SetGridObject(x, y, value);
 	}
 
 	public T GetGridObject(int x, int y)
