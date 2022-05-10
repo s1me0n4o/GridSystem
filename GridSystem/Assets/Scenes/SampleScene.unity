@@ -253,7 +253,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.4811321, g: 0.44141558, b: 0.36084908, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -330,6 +330,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8130f0a1afc324e82642fd05143f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PathQuad: {fileID: 3047787204729043452, guid: 49a48a412c4b2a141818bc285bc77745, type: 3}
+  WallQuad: {fileID: 3047787204729043452, guid: 4156575880c3c5144952d3766050c6c2, type: 3}
+  Offset: {x: 0.5, y: 0.5, z: 0}
   _parent: {fileID: 1613133166}
   _cellSize: 1
   _gridX: 10
