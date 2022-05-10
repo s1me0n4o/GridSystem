@@ -330,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8130f0a1afc324e82642fd05143f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Background: {fileID: 3520593297502547601, guid: 6922434a13088f54bbaea7c8b8bce2f5, type: 3}
   PathQuad: {fileID: 3047787204729043452, guid: 49a48a412c4b2a141818bc285bc77745, type: 3}
   WallQuad: {fileID: 3047787204729043452, guid: 4156575880c3c5144952d3766050c6c2, type: 3}
   Offset: {x: 0.5, y: 0.5, z: 0}

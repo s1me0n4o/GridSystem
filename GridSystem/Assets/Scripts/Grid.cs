@@ -68,10 +68,12 @@ public class Grid<T>
 			};
 		}
 	}
+
 	public float GetCellSize()
 	{
 		return _cellSize;
 	}
+
 	public int GetGridWidth()
 	{
 		return _width;
@@ -81,6 +83,13 @@ public class Grid<T>
 	{
 		return _height;
 	}
+
+	public T[,] GetGridArray()
+    {
+		return _gridArray;
+    }
+
+
 	public void SetGridObject(int x, int y, T value)
 	{
 		if (x >= 0 && y >= 0 && x < _width && y < _height)

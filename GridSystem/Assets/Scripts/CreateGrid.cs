@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CreateGrid : MonoBehaviour
 {
+    [SerializeField] private Transform Background;
     [SerializeField] private Transform PathQuad;
     [SerializeField] private Transform WallQuad;
     [SerializeField] private Vector3 Offset = new Vector3(0.5f, 0.5f);
@@ -15,7 +16,7 @@ public class CreateGrid : MonoBehaviour
     [field: SerializeField] private int _gridY;
     private Camera _camera;
     private float _cameraZ;
-    private LineDrawer _lineDrawer;
+    //private LineDrawer _lineDrawer;
     private PathFinding _pf;
 
     private List<Transform> _pathGameObjects = new List<Transform>();
@@ -29,13 +30,23 @@ public class CreateGrid : MonoBehaviour
         _camera = Camera.main;
         _cameraZ = Mathf.Abs(_camera.transform.position.z);
 
-        _lineDrawer = new LineDrawer();
+        //_lineDrawer = new LineDrawer();
 
         //_grid = new Grid<VisualGridObject>(_gridX, _gridY, _cellSize, Vector3.zero, _parent, 
         //    (Grid<VisualGridObject> grid, int x, int y) 
         //        => new VisualGridObject(grid, x, y));
 
         _pf = new PathFinding(_gridX, _gridY, _cellSize, _parent);
+
+        var arr = _pf.GetGrid().GetGridArray();
+        for (int x = 0; x < arr.GetLength(0); x++)
+        {
+            for (int y = 0; y < arr.GetLength(1); y++)
+            {
+                var go = Instantiate(Background, this.gameObject.transform);
+                go.localPosition = _pf.GetGrid().GetWorldPosition(x, y) + Offset;
+            }
+        }
     }
 
 
@@ -73,7 +84,7 @@ public class CreateGrid : MonoBehaviour
         {
             var mousePos = GetMouseWorldPosition();
             GetNode(mousePos, out int x, out int y, out PathNode node);
-            
+
             if (!node.IsWalkable)
             {
                 _walls.TryGetValue($"{x},{y}", out var obj);
